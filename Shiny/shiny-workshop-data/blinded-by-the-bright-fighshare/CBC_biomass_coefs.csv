@@ -1,0 +1,202 @@
+,SpeciesID,Phylum,CLASS,Order,FAMILY,Genus,SPECIES_NAME,CURRENT_SPECIES_NAME,CURRENT_TAXONOMIC_NAME,a,b,cf,SGFGu,Notes
+1,4586,Chordata,Actinopterygii,Perciformes,Acanthuridae,Acanthurus,Acanthurus bahianus,Acanthurus bahianus,Acanthurus bahianus,0.0237,2.975,0.908265213,S,NA
+2,4588,Chordata,Actinopterygii,Perciformes,Acanthuridae,Acanthurus,Acanthurus coeruleus,Acanthurus coeruleus,Acanthurus coeruleus,0.0415,2.835,0.928936368,S,NA
+4,4587,Chordata,Actinopterygii,Perciformes,Acanthuridae,Acanthurus,Acanthurus chirurgus,Acanthurus chirurgus,Acanthurus chirurgus,0.0041,3.533,0.953288847,S,NA
+5,4631,Chordata,Actinopterygii,Perciformes,Apogonidae,Apogon,Apogon townsendi,Apogon townsendi,Apogon townsendi,0.0124,3.284,0.941619586,G,NA
+6,4372,Chordata,Actinopterygii,Syngnathiformes,Aulostomidae,Aulostomus,Aulostomus maculatus,Aulostomus maculatus,Aulostomus maculatus,2.00E-04,3.514,1,G,NA
+7,4380,Chordata,Actinopterygii,Tetraodontiformes,Balistidae,Balistes,Balistes vetula,Balistes vetula,Balistes vetula,0.0109,3.23,1,S,NA
+9,1844,Chordata,Actinopterygii,Beloniformes,Belonidae,Tylosurus,Tylosurus crocodilus,Tylosurus crocodilus,Tylosurus crocodilus,6.00E-04,3.285,0.9578544,NA,NA
+10,4766,Chordata,Actinopterygii,Perciformes,Blenniidae,Parablennius,Parablennius marmoreus,Parablennius marmoreus,Parablennius marmoreus,0.0084,3.241,1,G,NA
+13,2956,Chordata,Actinopterygii,Perciformes,Carangidae,Elagatis,Elagatis bipinnulata,Elagatis bipinnulata,Elagatis bipinnulata,0.0199,2.995,0.859845228,F,NA
+14,3712,Chordata,Actinopterygii,Perciformes,Carangidae,Caranx,Caranx crysos,Caranx crysos,Caranx crysos,0.0169,3.02,1,S,NA
+15,4419,Chordata,Actinopterygii,Perciformes,Carangidae,Carangoides,Carangoides bartholomaei,Carangoides bartholomaei,Carangoides bartholomaei,0.034,2.84,0.870574579,S,NA
+16,6851,Chordata,Actinopterygii,Perciformes,Carangidae,Decapterus,Decapterus punctatus,Decapterus punctatus,Decapterus punctatus,0.0119,2.99,1,S,NA
+19,4420,Chordata,Actinopterygii,Perciformes,Carangidae,Carangoides,Carangoides ruber,Caranx ruber,Caranx ruber,0.034,2.84,0.870574579,G,NA
+20,4577,Chordata,Actinopterygii,Perciformes,Chaenopsidae,Acanthemblemaria,Acanthemblemaria aspera,Acanthemblemaria aspera,Acanthemblemaria aspera,0.0063,3.217,1,G,NA
+21,4167,Chordata,Actinopterygii,Perciformes,Chaetodontidae,Chaetodon,Chaetodon striatus,Chaetodon striatus,Chaetodon striatus,0.0222,3.14,1,S,NA
+22,4163,Chordata,Actinopterygii,Perciformes,Chaetodontidae,Chaetodon,Chaetodon ocellatus,Chaetodon ocellatus,Chaetodon ocellatus,0.0318,2.984,1,S,NA
+23,4440,Chordata,Actinopterygii,Perciformes,Chaetodontidae,Chaetodon,Chaetodon capistratus,Chaetodon capistratus,Chaetodon capistratus,0.047,2.86,1,S,NA
+24,4984,Chordata,Actinopterygii,Perciformes,Cirrhitidae,Amblycirrhitus,Amblycirrhitus pinos,Amblycirrhitus pinos,Amblycirrhitus pinos,0.0026,3.427,1,S,NA
+26,1565,Chordata,Actinopterygii,Tetraodontiformes,Diodontidae,Diodon,Diodon holocanthus,Diodon holocanthus,Diodon holocanthus,0.0219,3,1,S,NA
+27,3537,Chordata,Actinopterygii,Tetraodontiformes,Diodontidae,Chilomycterus,Chilomycterus affinis,Chilomycterus reticulatus,Chilomycterus reticulatus,0.254,2.38,1,G,NA
+28,3802,Chordata,Actinopterygii,Tetraodontiformes,Diodontidae,Chilomycterus,Chilomycterus reticulatus,Chilomycterus reticulatus,Chilomycterus reticulatus,0.254,2.38,1,G,NA
+29,3709,Chordata,Actinopterygii,Perciformes,Echeneidae,Remora,Remora remora,Remora remora,Remora remora,0.001,3.29,1,F,NA
+30,4001,Chordata,Actinopterygii,Perciformes,Echeneidae,Echeneis,Echeneis neucratoides,Echeneis neucratoides,Echeneis neucratoides,0.001,3.29,1,G,NA
+31,4436,Chordata,Actinopterygii,Perciformes,Ephippidae,Chaetodipterus,Chaetodipterus faber,Chaetodipterus faber,Chaetodipterus faber,0.0373,2.96,1,S,NA
+32,4993,Chordata,Actinopterygii,Perciformes,Gerreidae,Gerres,Gerres cinereus,Gerres cinereus,Gerres cinereus,0.0147,3.12,0.821692687,S,NA
+33,4679,Chordata,Elasmobranchii,Orectolobiformes,Ginglymostomatidae,Ginglymostoma,Ginglymostoma cirratum,Ginglymostoma cirratum,Ginglymostoma cirratum,0.0024,2.86,0.833333333,S,NA
+34,4018,Chordata,Actinopterygii,Perciformes,Gobiidae,Elacatinus,Elacatinus oceanops,Elacatinus oceanops,Elacatinus oceanops,0.0092,3.017,1,G,NA
+35,4222,Chordata,Actinopterygii,Perciformes,Gobiidae,Coryphopterus,Coryphopterus eidolon,Coryphopterus eidolon,Coryphopterus eidolon,0.0062,3.314,1,G,NA
+36,4681,Chordata,Actinopterygii,Perciformes,Gobiidae,Gnatholepis,Gnatholepis thompsoni,Gnatholepis thompsoni,Gnatholepis thompsoni,0.0035,3.766,1,S,NA
+37,4225,Chordata,Actinopterygii,Perciformes,Gobiidae,Coryphopterus,Coryphopterus personatus,Coryphopterus personatus,Coryphopterus personatus,0.0062,3.314,1,G,NA
+38,3223,Chordata,Actinopterygii,Perciformes,Gobiidae,Gnatholepis,Gnatholepis cauerensis,Gnatholepis cauerensis,Gnatholepis cauerensis,0.0035,3.766,1,G,NA
+39,4014,Chordata,Actinopterygii,Perciformes,Gobiidae,Elacatinus,Elacatinus evelynae,Elacatinus evelynae,Elacatinus evelynae,0.0092,3.017,1,G,NA
+40,4223,Chordata,Actinopterygii,Perciformes,Gobiidae,Coryphopterus,Coryphopterus glaucofraenum,Coryphopterus glaucofraenum,Coryphopterus glaucofraenum,0.0165,2.68,1,S,NA
+41,4019,Chordata,Actinopterygii,Perciformes,Gobiidae,Elacatinus,Elacatinus prochilos,Elacatinus prochilos,Elacatinus prochilos,0.0092,3.017,1,G,NA
+42,4221,Chordata,Actinopterygii,Perciformes,Gobiidae,Coryphopterus,Coryphopterus dicrus,Coryphopterus dicrus,Coryphopterus dicrus,0.0062,3.314,1,G,NA
+44,4691,Chordata,Actinopterygii,Perciformes,Grammatidae,Gramma,Gramma loreto,Gramma loreto,Gramma loreto,0.0167,2.863,1,Gu,NA
+45,4443,Chordata,Actinopterygii,Perciformes,Haemulidae,Haemulon,Haemulon macrostomum,Haemulon macrostomum,Haemulon macrostomum,0.0176,3.06,0.92506938,S,NA
+46,4447,Chordata,Actinopterygii,Perciformes,Haemulidae,Haemulon,Haemulon sciurus,Haemulon sciurus,Haemulon sciurus,0.0194,2.999,0.967117988,S,NA
+47,4617,Chordata,Actinopterygii,Perciformes,Haemulidae,Anisotremus,Anisotremus virginicus,Anisotremus virginicus,Anisotremus virginicus,0.0148,3.167,0.897666068,S,NA
+48,4707,Chordata,Actinopterygii,Perciformes,Haemulidae,Haemulon,Haemulon flavolineatum,Haemulon flavolineatum,Haemulon flavolineatum,0.013,3.158,0.917431193,S,NA
+49,4445,Chordata,Actinopterygii,Perciformes,Haemulidae,Haemulon,Haemulon melanurum,Haemulon melanurum,Haemulon melanurum,0.0226,2.953,0.916170408,S,NA
+50,4874,Chordata,Actinopterygii,Perciformes,Haemulidae,Haemulon,Haemulon plumierii,Haemulon plumierii,Haemulon plumierii,0.0178,3.034,0.894054537,S,NA
+51,4703,Chordata,Actinopterygii,Perciformes,Haemulidae,Haemulon,Haemulon aurolineatum,Haemulon aurolineatum,Haemulon aurolineatum,0.01,3.208,0.873743993,S,NA
+52,4704,Chordata,Actinopterygii,Perciformes,Haemulidae,Haemulon,Haemulon carbonarium,Haemulon carbonarium,Haemulon carbonarium,0.0404,2.74,0.92936803,S,NA
+53,4501,Chordata,Actinopterygii,Beryciformes,Holocentridae,Holocentrus,Holocentrus rufus,Holocentrus rufus,Holocentrus rufus,0.0256,2.639,1,S,NA
+54,4907,Chordata,Actinopterygii,Beryciformes,Holocentridae,Sargocentron,Sargocentron vexillarium,Sargocentron vexillarium,Sargocentron vexillarium,0.0158,3.051,1,S,NA
+55,4500,Chordata,Actinopterygii,Beryciformes,Holocentridae,Holocentrus,Holocentrus adscensionis,Holocentrus adscensionis,Holocentrus adscensionis,0.0213,2.778,1,S,NA
+56,4708,Chordata,Actinopterygii,Beryciformes,Holocentridae,Neoniphon,Neoniphon marianus,Neoniphon marianus,Neoniphon marianus,0.0049,3.379,1,G,NA
+57,4451,Chordata,Actinopterygii,Perciformes,Labridae,Halichoeres,Halichoeres bivittatus,Halichoeres bivittatus,Halichoeres bivittatus,0.0134,2.939,1,S,NA
+58,4914,Chordata,Actinopterygii,Perciformes,Labridae,Xyrichtys,Xyrichtys novacula,Xyrichtys novacula,Xyrichtys novacula,0.0481,2.243,1,S,NA
+59,5486,Chordata,Actinopterygii,Perciformes,Labridae,Doratonotus,Doratonotus megalepis,Doratonotus megalepis,Doratonotus megalepis,0.0134,2.939,1,F,NA
+60,4387,Chordata,Actinopterygii,Perciformes,Labridae,Bodianus,Bodianus rufus,Bodianus rufus,Bodianus rufus,0.0144,3.053,0.924214418,S,NA
+61,4456,Chordata,Actinopterygii,Perciformes,Labridae,Halichoeres,Halichoeres garnoti,Halichoeres garnoti,Halichoeres garnoti,0.0052,3.375,1,S,NA
+63,4205,Chordata,Actinopterygii,Perciformes,Labridae,Clepticus,Clepticus parrae,Clepticus parrae,Clepticus parrae,0.0134,2.939,1,F,NA
+64,4791,Chordata,Actinopterygii,Perciformes,Labridae,Thalassoma,Thalassoma bifasciatum,Thalassoma bifasciatum,Thalassoma bifasciatum,0.0107,2.916,1,S,NA
+67,4264,Chordata,Actinopterygii,Perciformes,Labridae,Lachnolaimus,Lachnolaimus maximus,Lachnolaimus maximus,Lachnolaimus maximus,0.0203,2.988,0.934579439,S,NA
+68,4457,Chordata,Actinopterygii,Perciformes,Labridae,Halichoeres,Halichoeres maculipinna,Halichoeres maculipinna,Halichoeres maculipinna,0.0028,3.693,1,S,NA
+69,4462,Chordata,Actinopterygii,Perciformes,Labridae,Halichoeres,Halichoeres pictus,Halichoeres pictus,Halichoeres pictus,0.0095,3.131,1,G,NA
+70,4464,Chordata,Actinopterygii,Perciformes,Labridae,Halichoeres,Halichoeres radiatus,Halichoeres radiatus,Halichoeres radiatus,0.0095,3.131,1,G,NA
+71,5584,Chordata,Actinopterygii,Perciformes,Labridae,Halichoeres,Halichoeres poeyi,Halichoeres poeyi,Halichoeres poeyi,0.0095,3.131,1,S,NA
+72,4037,Chordata,Actinopterygii,Perciformes,Labrisomidae,Malacoctenus,Malacoctenus macropus,Malacoctenus macropus,Malacoctenus macropus,0.0179,2.72,1,S,NA
+73,4040,Chordata,Actinopterygii,Perciformes,Labrisomidae,Malacoctenus,Malacoctenus triangulatus,Malacoctenus triangulatus,Malacoctenus triangulatus,0.0179,2.72,1,G,NA
+74,4286,Chordata,Actinopterygii,Perciformes,Lutjanidae,Lutjanus,Lutjanus analis,Lutjanus analis,Lutjanus analis,0.0104,3.07,0.922225638,S,NA
+75,4294,Chordata,Actinopterygii,Perciformes,Lutjanidae,Lutjanus,Lutjanus jocu,Lutjanus jocu,Lutjanus jocu,0.045,2.727,0.953288847,S,NA
+76,4296,Chordata,Actinopterygii,Perciformes,Lutjanidae,Lutjanus,Lutjanus mahogoni,Lutjanus mahogoni,Lutjanus mahogoni,0.0428,2.719,0.952380952,S,NA
+77,4298,Chordata,Actinopterygii,Perciformes,Lutjanidae,Lutjanus,Lutjanus synagris,Lutjanus synagris,Lutjanus synagris,0.0083,3.153,0.9375,S,NA
+79,4287,Chordata,Actinopterygii,Perciformes,Lutjanidae,Lutjanus,Lutjanus apodus,Lutjanus apodus,Lutjanus apodus,0.0194,2.978,0.969932105,S,NA
+80,4291,Chordata,Actinopterygii,Perciformes,Lutjanidae,Lutjanus,Lutjanus griseus,Lutjanus griseus,Lutjanus griseus,0.0195,2.91,1,S,NA
+82,4722,Chordata,Actinopterygii,Perciformes,Lutjanidae,Ocyurus,Ocyurus chrysurus,Ocyurus chrysurus,Ocyurus chrysurus,0.0523,2.65,0.899280576,S,NA
+83,4034,Chordata,Actinopterygii,Perciformes,Malacanthidae,Malacanthus,Malacanthus plumieri,Malacanthus plumieri,Malacanthus plumieri,0.0206,2.692,1,S,NA
+84,4986,Chordata,Actinopterygii,Perciformes,Microdesmidae,Ptereleotris,Ptereleotris calliura,Ptereleotris calliura,Ptereleotris calliura,0.0167,2.863,1,Gu,NA
+85,4412,Chordata,Actinopterygii,Tetraodontiformes,Monacanthidae,Cantherhines,Cantherhines pullus,Cantherhines pullus,Cantherhines pullus,0.0684,2.563,1,S,NA
+86,4060,Chordata,Actinopterygii,Tetraodontiformes,Monacanthidae,Monacanthus,Monacanthus tuckeri,Monacanthus tuckeri,Monacanthus tuckeri,0.0074,3.561,1,S,NA
+87,4314,Chordata,Actinopterygii,Perciformes,Mullidae,Pseudupeneus,Pseudupeneus maculatus,Pseudupeneus maculatus,Pseudupeneus maculatus,0.015,3.157,0.925925926,S,NA
+88,4696,Chordata,Actinopterygii,Anguilliformes,Muraenidae,Gymnothorax,Gymnothorax miliaris,Gymnothorax miliaris,Gymnothorax miliaris,0.0109,2.574,1,S,NA
+89,4698,Chordata,Actinopterygii,Anguilliformes,Muraenidae,Gymnothorax,Gymnothorax moringa,Gymnothorax moringa,Gymnothorax moringa,3.00E-04,3.431,1,S,NA
+90,1422,Chordata,Elasmobranchii,Myliobatiformes,Myliobatidae,Aetobatus,Aetobatus narinari,Aetobatus narinari,Aetobatus narinari,8.00E-04,3.34,1,F,NA
+91,4736,Chordata,Actinopterygii,Perciformes,Opistognathidae,Opistognathus,Opistognathus aurifrons,Opistognathus aurifrons,Opistognathus aurifrons,0.00475,3.229,1,Gu,NA
+92,4854,Chordata,Actinopterygii,Tetraodontiformes,Ostraciidae,Acanthostracion,Acanthostracion quadricornis,Acanthostracion quadricornis,Acanthostracion quadricornis,0.175,2.263,1,S,NA
+94,4584,Chordata,Actinopterygii,Tetraodontiformes,Ostraciidae,Acanthostracion,Acanthostracion polygonius,Acanthostracion polygonius,Acanthostracion polygonius,0.0517,2.679,0.812677773,S,NA
+95,4265,Chordata,Actinopterygii,Tetraodontiformes,Ostraciidae,Lactophrys,Lactophrys bicaudalis,Lactophrys bicaudalis,Lactophrys bicaudalis,0.0295,3,1,S,NA
+96,4499,Chordata,Actinopterygii,Perciformes,Pomacanthidae,Holacanthus,Holacanthus tricolor,Holacanthus tricolor,Holacanthus tricolor,0.0428,2.858,1,S,NA
+97,4497,Chordata,Actinopterygii,Perciformes,Pomacanthidae,Holacanthus,Holacanthus ciliaris,Holacanthus ciliaris,Holacanthus ciliaris,0.0336,2.9,1,S,NA
+98,4559,Chordata,Actinopterygii,Perciformes,Pomacanthidae,Pomacanthus,Pomacanthus paru,Pomacanthus paru,Pomacanthus paru,0.0203,3.126,1,S,NA
+99,4558,Chordata,Actinopterygii,Perciformes,Pomacanthidae,Pomacanthus,Pomacanthus arcuatus,Pomacanthus arcuatus,Pomacanthus arcuatus,0.0344,2.968,1,S,NA
+100,1527,Chordata,Actinopterygii,Perciformes,Pomacentridae,Chromis,Chromis cyanea,Chromis cyanea,Chromis cyanea,0.022,3.001,0.990099,NA,NA
+101,4136,Chordata,Actinopterygii,Perciformes,Pomacentridae,Stegastes,Stegastes adustus,Stegastes adustus,Stegastes adustus,0.0275,2.973,1,G,NA
+102,4139,Chordata,Actinopterygii,Perciformes,Pomacentridae,Stegastes,Stegastes diencaeus,Stegastes diencaeus,Stegastes diencaeus,0.0275,2.973,1,G,NA
+103,4144,Chordata,Actinopterygii,Perciformes,Pomacentridae,Stegastes,Stegastes leucostictus,Stegastes leucostictus,Stegastes leucostictus,0.0303,2.887,0.785545954,S,NA
+104,4145,Chordata,Actinopterygii,Perciformes,Pomacentridae,Stegastes,Stegastes partitus,Stegastes partitus,Stegastes partitus,0.0182,3.152,0.785545954,S,NA
+105,4146,Chordata,Actinopterygii,Perciformes,Pomacentridae,Stegastes,Stegastes planifrons,Stegastes planifrons,Stegastes planifrons,0.0379,2.857,0.863,S,NA
+106,4147,Chordata,Actinopterygii,Perciformes,Pomacentridae,Stegastes,Stegastes variabilis,Stegastes variabilis,Stegastes variabilis,0.0324,2.836,0.901,S,NA
+107,4190,Chordata,Actinopterygii,Perciformes,Pomacentridae,Chromis,Chromis multilineata,Chromis multilineata,Chromis multilineata,0.0204,3.217,0.84317032,G,NA
+108,4575,Chordata,Actinopterygii,Perciformes,Pomacentridae,Abudefduf,Abudefduf saxatilis,Abudefduf saxatilis,Abudefduf saxatilis,0.0227,3.142,0.883392226,S,NA
+109,4055,Chordata,Actinopterygii,Perciformes,Pomacentridae,Microspathodon,Microspathodon chrysurus,Microspathodon chrysurus,Microspathodon chrysurus,0.0239,3.082,0.961538462,S,NA
+110,2925,Chordata,Actinopterygii,Perciformes,Priacanthidae,Heteropriacanthus,Heteropriacanthus cruentatus,Heteropriacanthus cruentatus,Heteropriacanthus cruentatus,0.0152,3,1,S,NA
+111,5435,Chordata,Actinopterygii,Perciformes,Priacanthidae,Priacanthus,Priacanthus arenatus,Priacanthus arenatus,Priacanthus arenatus,0.013,3.039,1,S,NA
+112,4117,Chordata,Actinopterygii,Perciformes,Scaridae,Sparisoma,Sparisoma atomarium,Sparisoma atomarium,Sparisoma atomarium,0.0179,3.035,1,G,NA
+113,4119,Chordata,Actinopterygii,Perciformes,Scaridae,Sparisoma,Sparisoma chrysopterum,Sparisoma chrysopterum,Sparisoma chrysopterum,0.0099,3.171,0.868055556,S,NA
+114,4339,Chordata,Actinopterygii,Perciformes,Scaridae,Scarus,Scarus iseri,Scarus iseri,Scarus iseri,0.0166,3.02,0.860691012,S,NA
+115,4334,Chordata,Actinopterygii,Perciformes,Scaridae,Scarus,Scarus coeruleus,Scarus coeruleus,Scarus coeruleus,0.0124,3.111,1,S,NA
+116,4342,Chordata,Actinopterygii,Perciformes,Scaridae,Scarus,Scarus taeniopterus,Scarus taeniopterus,Scarus taeniopterus,0.0135,3,1,S,NA
+117,4118,Chordata,Actinopterygii,Perciformes,Scaridae,Sparisoma,Sparisoma aurofrenatum,Sparisoma aurofrenatum,Sparisoma aurofrenatum,0.0195,3,0.868055556,S,NA
+118,4121,Chordata,Actinopterygii,Perciformes,Scaridae,Sparisoma,Sparisoma rubripinne,Sparisoma rubripinne,Sparisoma rubripinne,0.0194,3,1,S,NA
+119,4120,Chordata,Actinopterygii,Perciformes,Scaridae,Sparisoma,Sparisoma radians,Sparisoma radians,Sparisoma radians,0.0179,3.035,1,S,NA
+120,4122,Chordata,Actinopterygii,Perciformes,Scaridae,Sparisoma,Sparisoma viride,Sparisoma viride,Sparisoma viride,0.025,2.921,0.898477462,S,NA
+121,4343,Chordata,Actinopterygii,Perciformes,Scaridae,Scarus,Scarus vetula,Scarus vetula,Scarus vetula,0.0184,3.029,0.973,G,NA
+122,4654,Chordata,Actinopterygii,Perciformes,Sciaenidae,Equetus,Equetus punctatus,Equetus punctatus,Equetus punctatus,0.0011,3.844,1,G,NA
+123,4347,Chordata,Actinopterygii,Perciformes,Scombridae,Scomberomorus,Scomberomorus regalis,Scomberomorus regalis,Scomberomorus regalis,0.0202,2.8,0.930665426,S,NA
+124,1020,Chordata,Actinopterygii,Scorpaeniformes,Scorpaenidae,Pterois,Pterois volitans,Pterois volitans,Pterois volitans,0.0155,3.298,1,F,NA
+125,4110,Chordata,Actinopterygii,Perciformes,Serranidae,Serranus,Serranus tigrinus,Serranus tigrinus,Serranus tigrinus,0.0145,3.048,0.817764358,S,NA
+126,4232,Chordata,Actinopterygii,Perciformes,Serranidae,Hypoplectrus,Hypoplectrus nigricans,Hypoplectrus nigricans,Hypoplectrus nigricans,0.0109,3.182,1,G,NA
+127,4234,Chordata,Actinopterygii,Perciformes,Serranidae,Hypoplectrus,Hypoplectrus puella,Hypoplectrus puella,Hypoplectrus puella,0.0109,3.182,1,G,NA
+128,6849,Chordata,Actinopterygii,Perciformes,Serranidae,Serranus,Serranus tortugarum,Serranus tortugarum,Serranus tortugarum,0.011,3.104,1,G,NA
+129,4074,Chordata,Actinopterygii,Perciformes,Serranidae,Mycteroperca,Mycteroperca bonaci,Mycteroperca bonaci,Mycteroperca bonaci,0.0113,3.05,1,S,NA
+130,4109,Chordata,Actinopterygii,Perciformes,Serranidae,Serranus,Serranus tabacarius,Serranus tabacarius,Serranus tabacarius,0.011,3.104,1,G,NA
+131,4428,Chordata,Actinopterygii,Perciformes,Serranidae,Cephalopholis,Cephalopholis fulva,Cephalopholis fulva,Cephalopholis fulva,0.0192,2.933,1,S,NA
+133,4231,Chordata,Actinopterygii,Perciformes,Serranidae,Hypoplectrus,Hypoplectrus indigo,Hypoplectrus indigo,Hypoplectrus indigo,0.0109,3.182,1,G,NA
+134,4235,Chordata,Actinopterygii,Perciformes,Serranidae,Hypoplectrus,Hypoplectrus unicolor,Hypoplectrus unicolor,Hypoplectrus unicolor,0.0109,3.182,1,S,NA
+135,4427,Chordata,Actinopterygii,Perciformes,Serranidae,Cephalopholis,Cephalopholis cruentata,Cephalopholis cruentata,Cephalopholis cruentata,0.0121,3.082,1,S,NA
+136,4644,Chordata,Actinopterygii,Perciformes,Serranidae,Epinephelus,Epinephelus adscensionis,Epinephelus adscensionis,Epinephelus adscensionis,0.0125,3.224,0.804505229,S,NA
+137,5403,Chordata,Actinopterygii,Perciformes,Serranidae,Serranus,Serranus baldwini,Serranus baldwini,Serranus baldwini,0.011,3.104,1,G,NA
+138,4402,Chordata,Actinopterygii,Perciformes,Sparidae,Calamus,Calamus calamus,Calamus calamus,Calamus calamus,0.0429,2.801,0.946073794,S,NA
+139,3087,Chordata,Actinopterygii,Perciformes,Sphyraenidae,Sphyraena,Sphyraena barracuda,Sphyraena barracuda,Sphyraena barracuda,0.0108,2.84,1,S,NA
+140,138,Chordata,Actinopterygii,Aulopiformes,Synodontidae,Trachinocephalus,Trachinocephalus myops,Trachinocephalus myops,Trachinocephalus myops,4.00E-04,3.972,1,NA,NA
+141,4779,Chordata,Actinopterygii,Aulopiformes,Synodontidae,Synodus,Synodus intermedius,Synodus intermedius,Synodus intermedius,0.0099,2.999,0.931,S,NA
+142,4417,Chordata,Actinopterygii,Tetraodontiformes,Tetraodontidae,Canthigaster,Canthigaster rostrata,Canthigaster rostrata,Canthigaster rostrata,0.0323,2.953,1,G,NA
+143,5000,Chordata,Actinopterygii,Tetraodontiformes,Tetraodontidae,Sphoeroides,Sphoeroides spengleri,Sphoeroides spengleri,Sphoeroides spengleri,0.0107,3.267,1,S,NA
+144,4819,Chordata,Elasmobranchii,Myliobatiformes,Urolophidae,Urobatis,Urobatis jamaicensis,Urobatis jamaicensis,Urobatis jamaicensis,0.0072,3.083,1,S,NA
+145,NA,NA,NA,NA,NA,NA,NA,NA,Apogon quadrisquamatus,0.0124,3.284,0.941619586,G,NA
+146,NA,NA,NA,NA,NA,NA,NA,NA,Apogon robbyi,0.0124,3.284,0.941619586,G,NA
+147,NA,NA,NA,NA,NA,NA,NA,NA,Coryphopterus kuna,0.0165,2.68,1,G,NA
+148,NA,NA,NA,NA,NA,NA,NA,NA,Coryphopterus venezuelae,0.0165,2.68,1,G,NA
+149,NA,NA,NA,NA,NA,NA,NA,NA,Ctenogobius stigmaturus,0.0035,3.766,1,F,NA
+150,NA,NA,NA,NA,NA,NA,NA,NA,Myrichthys breviceps,2.00E-04,3,1,G,NA
+151,NA,NA,NA,NA,NA,NA,NA,NA,Ogcocephalus nasutus,0.0302,2.61,1,G,NA
+152,NA,NA,NA,NA,NA,NA,NA,NA,Ptereleotris helenae,0.0167,2.863,1,Gu,NA
+153,NA,NA,NA,NA,NA,NA,NA,NA,Ptereleotris randalli,0.0167,2.863,1,Gu,NA
+154,NA,NA,NA,NA,NA,NA,NA,NA,Scorpaena grandicornis,0.0243,2.949,1,G,NA
+155,NA,NA,NA,NA,NA,NA,NA,NA,Tigrigobius dilepis,0.013,2.882,1,F,NA
+156,NA,NA,NA,NA,NA,NA,NA,NA,Clupeidae,0.0093,3,1,F,NA
+157,NA,NA,NA,NA,NA,NA,NA,NA,Haemulon,0.0175,3.099,1,G,NA
+158,NA,NA,NA,NA,NA,NA,NA,NA,Hypoplectrus,0.0109,3.182,1,F,NA
+159,NA,NA,NA,NA,NA,NA,NA,NA,Strongylura notata,0.0016,2.996,0.933053417,G,NA
+160,NA,NA,NA,NA,NA,NA,NA,NA,Opistognathus,0.00475,3.229,1,Gu,NA
+161,NA,NA,NA,NA,NA,NA,NA,NA,Styracura schmardae,0.0072,3.083,1,F,NA
+162,NA,NA,NA,NA,NA,NA,NA,NA,Gambusia,8.00E-06,3.086,1,G,NA
+163,NA,NA,NA,NA,NA,NA,NA,NA,Gerreidae,0.0147,3.12,0.821692687,F,NA
+164,NA,NA,NA,NA,NA,NA,NA,NA,Gobiidae,0.013,2.882,1,F,NA
+165,NA,NA,NA,NA,NA,NA,NA,NA,Lutjanus,0.0194,2.978,0.969932105,G,NA
+166,NA,NA,NA,NA,NA,NA,NA,NA,Sparisoma,0.0195,3,0.868055556,G,NA
+167,NA,NA,NA,NA,NA,NA,NA,NA,Blenniidae,0.0105,3.13,1,F,NA
+168,NA,NA,NA,NA,NA,NA,NA,NA,Elacatinus,0.0092,3.017,1,G,NA
+169,NA,NA,NA,NA,NA,NA,NA,NA,Scaridae,0.0184,3.029,0.973,G,NA
+170,NA,NA,NA,NA,NA,NA,NA,NA,Atherinidae,0.0075,2.975,1,NA,NA
+171,NA,NA,NA,NA,NA,NA,NA,NA,Scarus,0.0184,3.029,0.973,G,NA
+172,NA,NA,NA,NA,NA,NA,NA,NA,Syngnathidae,2.00E-04,2.749,1,F,NA
+173,NA,NA,NA,NA,NA,NA,NA,NA,Engraulidae,0.0047,3.05,1,G,NA
+174,NA,NA,NA,NA,NA,NA,NA,NA,Hypoplectrus indigo,0.0109,3.182,1,G,NA
+175,NA,NA,NA,NA,NA,NA,NA,NA,Monacanthidae,0.0684,2.563,1,F,NA
+176,NA,NA,NA,NA,NA,NA,NA,NA,Serranidae,0.011,3.104,1,F,NA
+177,NA,NA,NA,NA,NA,NA,NA,NA,Pleuronectiformes,0.009,3.099,1,F,NA
+178,NA,NA,NA,NA,NA,NA,NA,NA,Eucinostomus melanopterus,0.006,3.62,1,S,NA
+179,NA,NA,NA,NA,NA,NA,NA,NA,Epinephelus guttatus,0.0106,3.099,1,S,NA
+180,NA,NA,NA,NA,NA,NA,NA,NA,Bothus ocellatus,0.009,3.099,1,G,NA
+181,NA,NA,NA,NA,NA,NA,NA,NA,Diplectrum bivittatum,0.009,3.1,1,G,NA
+182,NA,NA,NA,NA,NA,NA,NA,NA,Diplogrammus pauciradiatus,0.014,2.709,1,G,NA
+183,NA,NA,NA,NA,NA,NA,NA,NA,Elacatinus lobeli,0.0092,3.017,1,G,NA
+184,NA,NA,NA,NA,NA,NA,NA,NA,Halichoeres cyanocephalus,0.0095,3.131,1,G,NA
+185,NA,NA,NA,NA,NA,NA,NA,NA,Dasyatis centroura,0.0739,2.81,0.571428571,G,NA
+186,NA,NA,NA,NA,NA,NA,NA,NA,Sphoeroides testudineus,0.0372,2.77,1,G,NA
+187,NA,NA,NA,NA,NA,NA,NA,NA,Cryptotomus roseus,0.0179,3.035,1,F,NA
+188,NA,NA,NA,NA,NA,NA,NA,NA,Hypanus americanus,0.0739,2.81,0.571428571,G,NA
+189,NA,NA,NA,NA,NA,NA,NA,NA,Caranx hippos,0.03675,2.831,1,S,NA
+190,NA,NA,NA,NA,NA,NA,NA,NA,Lactophrys triqueter,0.0295,3,1,G,NA
+191,NA,NA,NA,NA,NA,NA,NA,NA,Bothus lunatus,0.009,3.099,1,G,NA
+192,NA,NA,NA,NA,NA,NA,NA,NA,Monacanthus ciliatus,0.0074,3.561,1,S,NA
+193,NA,NA,NA,NA,NA,NA,NA,NA,Callionymus bairdi,0.014,2.709,1,G,NA
+194,NA,NA,NA,NA,NA,NA,NA,NA,Archosargus probatocephalus,0.0429,2.801,0.946073794,F,NA
+195,NA,NA,NA,NA,NA,NA,NA,NA,Eucinostomus gula,0.0147,3.12,0.821692687,F,NA
+196,NA,NA,NA,NA,NA,NA,NA,NA,Xyrichtys martinicensis,0.0481,2.243,1,G,NA
+197,NA,NA,NA,NA,NA,NA,NA,NA,Acanthemblemaria,0.0063,3.217,1,G,NA
+198,NA,NA,NA,NA,NA,NA,NA,NA,Emblemariopsis,0.0064,3.09,1,Gu,NA
+199,NA,NA,NA,NA,NA,NA,NA,NA,Euthynnus alletteratus,0.0138,3.035,0.933706816,G,NA
+200,NA,NA,NA,NA,NA,NA,NA,NA,Labrisomus,0.0092,2.911,1,F,NA
+201,NA,NA,NA,NA,NA,NA,NA,NA,Syacium micrurum,0.0085,3.08,1,S,NA
+,,,,,,,,,Acanthurus tractus,0.0415,2.835,0.928936368,G,manuallly substituted A. coeruleus
+,,,,,,,,,Ablennes hians,0.00055,3.226,1,S,mean from fishbase
+,,,,,,,,,Bothus ocellatus,0.009,3.099,1,G,Bothus spp. from RSS
+,,,,,,,,,Diplogrammus pauciradiatus,0.014,2.709,1,G,both Diplogrammus spp. in RSS have same coefficients
+,,,,,,,,,Caranx ruber,0.034,2.84,0.870574579,G,Used RSS value
+,,,,,,,,,Trachinotus falcatus,0.030178,2.9336,1,S,mean from fishbase
+,,,,,,,,,Dasyatis centroura,0.0739,2.81,0.571428571,G,"Used southern stingray from RSS, similar body type"
+,,,,,,,,,Elacatinus lobeli,0.0092,3.017,1,G,Used Elactainus spp. from RSS
+,,,,,,,,,Xyrichtys splendens,0.012425,3.0295,1,S,mean from fishbase
+,,,,,,,,,Halichoeres cyanocephalus,0.0095,3.131,1,G,used H. pictus from RSS
+,,,,,,,,,Bodianus pulchellus,0.0187,3.12,1,S,mean from fishbase
+,,,,,,,,,Lutjanus buccanella,0.018507778,2.943444444,1,S,mean from fishbase
+,,,,,,,,,Lutjanus cyanopterus,0.31606,3.033,1,S,mean from fishbase
+,,,,,,,,,Lactophrys trigonus,0.1964,2.5915,1,S,mean from fishbase
+,,,,,,,,,Diplectrum bivittatum,0.009,3.1,1,G,only other Diplectrum sp. in RSS

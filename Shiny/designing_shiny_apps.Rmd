@@ -1,0 +1,602 @@
+---
+title: "Designing Shiny Applications"
+date: "2025-06-27"
+---
+
+## Load packages and data
+
+Data originates from https://doi.org/10.25573/serc.20344158.v1, a companion data publication to the "Blinded by the Bright: How species-poor habitats contribute to regional biodiversity across a tropical seascape" publication (https://doi.org/10.1111/ddi.13632). It has been processed for use in this document with the R script at "/data/process_rls_data.R". 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(shiny)
+library(tidyverse)
+library(bslib)
+# You'll also need viridis and leaflet for later app examples. 
+
+fish_data <- read_csv("shiny-workshop-data/cbc_rls_shiny_workshop_data.csv")
+
+```
+
+Let's check out the data:
+
+``` {r}
+
+head(fish_data)
+
+```
+
+Each row in the dataset represents the count of a species in a given size class identified during a dive. We're going to learn Shiny basics using this dataset to explore species abundance and richness at Carrie Bow Cay. 
+
+## Application 1: Inputs and Outputs
+
+Shiny applications are built on a fundamental principle: reactive programming. At its core, a Shiny app consists of two main components that work together seamlessly:
+
+User Interface (UI): Defines what users see and interact with
+Server Function: Contains the logic that responds to user interactions
+
+The magic happens through reactivity, which automatically updates outputs whenever inputs change. Think of it like a spreadsheet formula that recalculates when you change a cell value.
+
+In our first application, you'll see this in action with:
+
+Select inputs that allow users to select habitats and years
+A plot that displays a histogram
+The automatic connection between them through reactivity
+
+Notice how changing a selection immediately updates the plot without any manual refresh - this is reactivity!
+
+```{r}
+
+# create a basic Shiny page that will have a sidebar and a main panel
+ui <- page_sidebar(
+  
+  title = "1: Inputs and Outputs",
+  
+  # sidebar provides a convenient place for application controls
+  sidebar = sidebar(
+    
+    # selectInput allows user to pick from a selection of choices
+    selectInput(inputId = "habitat",
+                label = "Select habitats to include",
+                choices = unique(fish_data$habitat),
+                selected = unique(fish_data$habitat),
+                multiple = TRUE),
+    
+    selectInput(inputId = "year",
+                label = "Select years to include",
+                choices = unique(fish_data$year),
+                selected = unique(fish_data$year),
+                multiple = TRUE),
+  ),
+  
+  # everything outside the sidebar function goes in the main window area
+  card(plotOutput(outputId = "abundance_plot")),
+)
+
+server <- function(input, output, session) {
+  
+  output$abundance_plot <- renderPlot({
+    
+    # Take the fish data and filter by habitat and year selections, then plot
+    fish_data %>%
+      group_by(habitat, year, location_name) %>%
+      filter(habitat %in% input$habitat,
+             year %in% input$year) %>%
+      summarize(abundance = sum(size_count, na.rm = T)) %>%
+      mutate(log10_abundance = log10(abundance)) %>%
+      ggplot(aes(x = log10_abundance, fill = habitat)) + geom_histogram() +
+      ggtitle("Fish Abundance per Dive") +
+      theme_minimal() + labs(y = "Count of Dives") + 
+      theme(text = element_text(size = 20))
+    
+  })
+  
+}
+
+shinyApp(ui, server)
+
+```
+
+## Reactivity & multiple outputs
+
+Now that you've seen basic input-output relationships, let's explore what happens when applications become more complex. As you add multiple outputs that depend on the same user inputs, you might notice some inefficiency - each output processes the same data transformations independently.This is where reactive objects become essential.
+
+But first, let's add a new function that will transform our data. We want to create multiple metrics for each habitat - year combination, including species richness and the number of unique species only observed in that habitat. The output of this function will then be sent to new plots that we add to our application. 
+
+
+```{r}
+
+summarize_by_habitat_year <- function(df){
+  
+  # Loop over each year:
+  unique_species_list <- lapply(unique(df$year), function(year){
+    
+    # One row per species observed in each habitat
+    fish_year_subset <- df %>%
+      filter(year == !!year) %>%
+      distinct(habitat, scientific_name, rank)
+    
+    # Loop over each habitat and create a list of dataframes, one per habitat
+    habitat_list <- lapply(unique(fish_year_subset$habitat), function(habitat){
+      
+      fish_year_subset %>%
+        filter(habitat == !!habitat) %>%
+        mutate(habitat = !!habitat)
+      
+    })
+    
+    # Calculate the total number of species per habitat
+    total_species_per_habitat <- bind_rows(habitat_list) %>%
+      group_by(habitat) %>%
+      summarize(n_total = n()) %>%
+      mutate(year = !!year)
+    
+    # Loop over the habitat list and pull out the species in each habitat
+    unique_species <- lapply(habitat_list, function(df) unique(df$scientific_name))
+    
+    # Loop over the species list and determine which species are unique for a given habitat
+    unique_species_list_year <- lapply(seq_along(habitat_list), function(i) {
+      
+      other_species_values <- unlist(unique_species[-i])
+      unique_species_values <- setdiff(unlist(unique_species[i]),
+                                       other_species_values)
+      
+      habitat_list[[i]] %>%
+        filter(scientific_name %in% unique_species_values)
+      
+    })
+    
+    # Calculate the number of unique species per habitat
+    unique_species_per_habitat <- bind_rows(unique_species_list_year) %>%
+      group_by(habitat) %>%
+      summarize(n_unique = n())
+    
+    full_join(total_species_per_habitat, unique_species_per_habitat, by = "habitat") %>%
+      mutate(n_unique = replace_na(n_unique, 0),
+             percent_unique = n_unique / n_total,
+             year = !!year)
+    
+  })
+  
+  # Take the mean for each habitat of all years
+  unique_species_df <- bind_rows(unique_species_list) %>%
+    group_by(habitat) %>%
+    summarize(n_unique = mean(n_unique),
+              n_total = mean(n_total),
+              percent_unique = mean(percent_unique))
+  
+  return(unique_species_df)
+  
+}
+
+```
+
+Let's see what the function returns if we give it `fish_data`
+
+```{r}
+
+summarize_by_habitat_year(fish_data)
+
+```
+
+Cool! This function is going to into our R Shiny app, along with several new plots. But we don't want each plot to have to run this function independently. This is where reactive objects become essential. Think of them as intermediate steps that:
+
+Cache processed data so it's computed only once
+Share filtered or transformed data across multiple outputs
+Improve performance by avoiding redundant calculations
+
+This demonstrates a key coding principle: Don't Repeat Yourself (DRY). Instead of filtering the same dataset four times for four different plots, we filter it once and reuse the result.
+Watch how all four plots update simultaneously when you change the input - they're all drawing from the same reactive data source!
+
+## Application 2: Reactive Objects
+
+```{r}
+ui <- page_sidebar(
+  
+  title = "2: Reactive Objects",
+  
+  sidebar = sidebar(
+    
+    selectInput(inputId = "habitat",
+                label = "Select habitats to include",
+                choices = unique(fish_data$habitat),
+                selected = unique(fish_data$habitat),
+                multiple = TRUE),
+    
+    selectInput(inputId = "year",
+                label = "Select years to include",
+                choices = unique(fish_data$year),
+                selected = unique(fish_data$year),
+                multiple = TRUE),
+  ),
+  
+  layout_columns(
+    # layout tool to specify how to arrange plots in cols and rows
+    # A row = 12 units
+    # so each plot should take up 50% of a row. 
+    col_widths = c(6,6),
+    
+    card(plotOutput(outputId = "abundance_plot")),
+    card(plotOutput(outputId = "richness_plot")),
+    card(plotOutput(outputId = "unique_sp_plot")),
+    card(plotOutput(outputId = "percent_unique_sp_plot"))
+  )
+  
+)
+
+server <- function(input, output, session) {
+  
+  # This reactive function will be called by other reactives and the plots, as necessary
+  fish_subset <- reactive({
+    
+    fish_subset <- fish_data %>%
+      filter(habitat %in% input$habitat,
+             year %in% input$year)
+    
+    return(fish_subset)
+      
+  })
+  
+  # This reactive calls the new function we created
+  habitat_summary <- reactive({
+  
+    fish_subset <- fish_subset()
+    habitat_summary <- summarize_by_habitat_year(fish_subset)
+    
+    return(habitat_summary)
+    
+  })
+  
+  output$abundance_plot <- renderPlot({
+    
+    # No longer needs to filter by year and habitat! 
+    fish_subset() %>%
+      group_by(habitat, year, location_name) %>%
+      summarize(abundance = sum(size_count, na.rm = T)) %>%
+      mutate(log10_abundance = log10(abundance)) %>%
+      ggplot(aes(x = log10_abundance, fill = habitat)) + geom_histogram() +
+      ggtitle("Fish Abundance per Dive") +
+      theme_minimal() + labs(y = "Count of Dives") + 
+      theme(text = element_text(size = 18))
+    
+  })
+  
+  # Our new plots call the habitat summary reactive
+  output$richness_plot <- renderPlot({
+    
+    habitat_summary()  %>%
+      ggplot(aes(x = habitat, y = n_total, fill = habitat)) + 
+      geom_bar(stat = "identity") +
+      theme_minimal() + labs(y = "Species Richness") + 
+      theme(text = element_text(size = 18))
+    
+  })
+  
+  output$unique_sp_plot <- renderPlot({
+    
+    habitat_summary()  %>%
+      ggplot(aes(x = habitat, y = n_unique, fill = habitat)) + 
+      geom_bar(stat = "identity") +
+      theme_minimal() + labs(y = "Total Unique Species") + 
+      theme(text = element_text(size = 18))
+    
+    
+  })
+  
+  output$percent_unique_sp_plot <- renderPlot({
+    
+    habitat_summary()  %>%
+      ggplot(aes(x = habitat, y = percent_unique, fill = habitat)) + 
+      geom_bar(stat = "identity") +
+      theme_minimal() + labs(y = "Percent Unique Species") + 
+      theme(text = element_text(size = 18))
+    
+  })
+  
+}
+
+shinyApp(ui, server)
+
+```
+
+
+## Adding a spatial dimension
+
+We're going to add a map to our application. First, let's load the coordinates for our data and the leaflet package. 
+
+```{r}
+
+library(leaflet)
+
+coordinates <- read_csv("shiny-workshop-data/blinded-by-the-bright-fighshare/RLS Metadata.csv")
+
+```
+
+## Application 3: Let's add a map
+
+Our final application introduces interactive mapping with the leaflet package, demonstrating how Shiny integrates with specialized visualization libraries. We get a few benefits: 
+
+- Just like our previous plots, maps can respond to user inputs by filtering locations, changing markers, or updating display properties.
+- Leaflet maps aren't just displays - users can zoom, pan, and click on features. These interactions can trigger additional reactive responses in your application.
+- Maps often combine multiple data layers (points, polygons, popup information) while maintaining the same reactive principles you've already learned.
+
+The beauty of Shiny's design is that adding a complex interactive map follows the same patterns as our simple plot from Application 1:
+
+User makes a selection (input)
+Data gets processed (reactive object)
+Visualization updates automatically (output)
+
+Notice how the map integrates with the same filtering system that drives your other plots:
+
+
+```{r}
+ui <- page_sidebar(
+  
+  title = "3: Let's add a map!",
+  
+  sidebar = sidebar(
+    
+    selectInput(inputId = "habitat",
+                label = "Select habitats to include",
+                choices = unique(fish_data$habitat),
+                selected = unique(fish_data$habitat),
+                multiple = TRUE),
+    
+    selectInput(inputId = "year",
+                label = "Select years to include",
+                choices = unique(fish_data$year),
+                selected = unique(fish_data$year),
+                multiple = TRUE),
+  ),
+  
+  layout_columns(
+    # We add a new card for the map
+    # A negative number in widths creates white space
+    col_widths = c(-2,8,
+                   6,6,
+                   6,6),
+    
+    card(leafletOutput(outputId = "map")),
+    card(plotOutput(outputId = "abundance_plot")),
+    card(plotOutput(outputId = "richness_plot")),
+    card(plotOutput(outputId = "unique_sp_plot")),
+    card(plotOutput(outputId = "percent_unique_sp_plot"))
+  )
+  
+)
+
+server <- function(input, output, session) {
+  
+  # This reactive function will be called by other reactives and the plots, as necessary
+  fish_subset <- reactive({
+    
+      fish_subset <- fish_data %>%
+          filter(habitat %in% input$habitat,
+             year %in% input$year)
+      
+      return(fish_subset)
+      
+  })
+  
+  # This reactive calls the new function we created
+  habitat_summary <- reactive({
+  
+    fish_subset <- fish_subset()
+    habitat_summary <- summarize_by_habitat_year(fish_subset)
+    
+    return(habitat_summary)
+    
+  })
+  
+  output$abundance_plot <- renderPlot({
+    
+    fish_subset() %>%
+      group_by(habitat, year, location_name) %>%
+      summarize(abundance = sum(size_count, na.rm = T)) %>%
+      mutate(log10_abundance = log10(abundance)) %>%
+      ggplot(aes(x = log10_abundance, fill = habitat)) + geom_histogram() +
+      ggtitle("Fish Abundance per Dive") +
+      theme_minimal() + labs(y = "Count of Dives") + 
+      theme(text = element_text(size = 18))
+    
+  })
+  
+  output$richness_plot <- renderPlot({
+    
+    habitat_summary()  %>%
+      ggplot(aes(x = habitat, y = n_total, fill = habitat)) + 
+      geom_bar(stat = "identity") +
+      theme_minimal() + labs(y = "Species Richness") + 
+      theme(text = element_text(size = 18))
+    
+  })
+  
+  output$unique_sp_plot <- renderPlot({
+    
+    habitat_summary()  %>%
+      ggplot(aes(x = habitat, y = n_unique, fill = habitat)) + 
+      geom_bar(stat = "identity") +
+      theme_minimal() + labs(y = "Total Unique Species") + 
+      theme(text = element_text(size = 18))
+    
+    
+  })
+  
+  output$percent_unique_sp_plot <- renderPlot({
+    
+    habitat_summary()  %>%
+      ggplot(aes(x = habitat, y = percent_unique, fill = habitat)) + 
+      geom_bar(stat = "identity") +
+      theme_minimal() + labs(y = "Percent Unique Species") + 
+      theme(text = element_text(size = 18))
+    
+  })
+ 
+  output$map <- renderLeaflet({
+    
+    locations_to_map <- fish_subset() %>%
+      count(location_name)
+    
+    coordinates %>%
+      right_join(locations_to_map, by = "location_name") %>%
+      leaflet() %>%
+      # Use the default OSM tiles
+      addTiles() %>%
+      # Click each marker to get a popup with location name and habitat
+      addMarkers(lat = ~transect_decimal_latitude, lng = ~transect_decimal_longitude,
+                 popup = ~paste("<b>", location_name, "</b><br>",
+                      "Habitat:", habitat, "<br>"),
+)
+
+  }) 
+}
+
+shinyApp(ui, server)
+
+```
+
+## Application 4: Let's add a better map
+
+Pretty boring though. How can we modify how the data is displayed spatially, either with color or shape?
+
+```{r}
+
+# Leaflet is kind of a pain and requires a custom color palette 
+library(viridis)
+habitat_pal <- colorFactor(viridis(5), unique(fish_data$habitat)) 
+
+ui <- page_sidebar(
+  
+  title = "4: Let's add a better map!",
+  
+  sidebar = sidebar(
+    
+    selectInput(inputId = "habitat",
+                label = "Select habitats to include",
+                choices = unique(fish_data$habitat),
+                selected = unique(fish_data$habitat),
+                multiple = TRUE),
+    
+    selectInput(inputId = "year",
+                label = "Select years to include",
+                choices = unique(fish_data$year),
+                selected = unique(fish_data$year),
+                multiple = TRUE),
+  ),
+  
+  layout_columns(
+    # We add a new card for the map
+    # A negative number in widths creates white space
+    col_widths = c(-2,8,
+                   6,6,
+                   6,6),
+    
+    card(leafletOutput(outputId = "map"), full_screen = TRUE),
+    card(plotOutput(outputId = "abundance_plot")),
+    card(plotOutput(outputId = "richness_plot")),
+    card(plotOutput(outputId = "unique_sp_plot")),
+    card(plotOutput(outputId = "percent_unique_sp_plot"))
+  )
+  
+)
+
+server <- function(input, output, session) {
+  
+  # This reactive function will be called by other reactives and the plots, as necessary
+  fish_subset <- reactive({
+    
+      fish_subset <- fish_data %>%
+          filter(habitat %in% input$habitat,
+             year %in% input$year)
+      
+      return(fish_subset)
+      
+  })
+  
+  # This reactive calls the new function we created
+  habitat_summary <- reactive({
+  
+    fish_subset <- fish_subset()
+    habitat_summary <- summarize_by_habitat_year(fish_subset)
+    
+    return(habitat_summary)
+    
+  })
+  
+  output$abundance_plot <- renderPlot({
+    
+    fish_subset() %>%
+      filter(habitat %in% input$habitat,
+             year %in% input$year) %>%
+      group_by(habitat, year, location_name) %>%
+      summarize(abundance = sum(size_count, na.rm = T)) %>%
+      mutate(log10_abundance = log10(abundance)) %>%
+      ggplot(aes(x = log10_abundance, fill = habitat)) + geom_histogram() +
+      ggtitle("Fish Abundance per Dive") +
+      theme_minimal() + labs(y = "Count of Dives") + 
+      theme(text = element_text(size = 18))
+    
+  })
+  
+  output$richness_plot <- renderPlot({
+    
+    habitat_summary()  %>%
+      ggplot(aes(x = habitat, y = n_total, fill = habitat)) + 
+      geom_bar(stat = "identity") +
+      theme_minimal() + labs(y = "Species Richness") + 
+      theme(text = element_text(size = 18))
+    
+  })
+  
+  output$unique_sp_plot <- renderPlot({
+    
+    habitat_summary()  %>%
+      ggplot(aes(x = habitat, y = n_unique, fill = habitat)) + 
+      geom_bar(stat = "identity") +
+      theme_minimal() + labs(y = "Total Unique Species") + 
+      theme(text = element_text(size = 18))
+    
+    
+  })
+  
+  output$percent_unique_sp_plot <- renderPlot({
+    
+    habitat_summary()  %>%
+      ggplot(aes(x = habitat, y = percent_unique, fill = habitat)) + 
+      geom_bar(stat = "identity") +
+      theme_minimal() + labs(y = "Percent Unique Species") + 
+      theme(text = element_text(size = 18))
+    
+  })
+ 
+  output$map <- renderLeaflet({
+    
+    fish_subset() %>%
+      group_by(habitat, year, location_name) %>%
+      summarize(richness = n_distinct(scientific_name)) %>%
+      group_by(habitat, location_name) %>%
+      summarize(richness = mean(richness)) %>%
+      left_join(coordinates %>%
+                  select(-habitat), 
+                by = "location_name") %>%
+      leaflet() %>%
+      addTiles() %>%
+      addCircles(
+        lat = ~transect_decimal_latitude, lng = ~transect_decimal_longitude,
+        radius = ~richness*10, weight = 1, color = "#777777",
+        fillColor = ~habitat_pal(habitat), fillOpacity = 1,
+        popup = ~paste("<b>", location_name, "</b><br>",
+                       "Habitat:", habitat, "<br>")
+      )
+  }) 
+}
+
+shinyApp(ui, server)
+
+```
+
+And that's it! The third application is also located in "/app-example/" to show you how you might organize a Shiny application for regular development and publication on a Shiny server. 
+
+You can always reach out via email (`lonnemanm@si.edu`) or Microsoft Teams if you have any questions! 
+
+
