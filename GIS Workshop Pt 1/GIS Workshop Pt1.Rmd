@@ -1,0 +1,130 @@
+---
+title: "GIS Workshop Pt1"
+author: "M.Cortese"
+date: "2025-07-10"
+output: html_document
+Notes: Adopted from the terra vingette. See for more tutorials https://rspatial.org/pkg/index.html
+---
+
+Learning Goals:
+Projections & coordinate systems
+Loading spatial data
+Building new layers 
+Editing data (and metadata)
+Exporting data
+Making and exporting basic maps
+
+This will cover processes in terra to avoide conflicts between multiple package format. If you start using other common geospatial packages like 'raster' you may have to start switching between file formats 'spatRaster' to 'rasterLayer'
+
+```{r setup}
+#load packages
+library(terra)
+library(ggspatial)
+library(tidyterra)
+library(ggplot2)
+```
+
+First we want to load in some spatial data that already exists. This could include point data, lines, polygons, or raster data. 
+
+```{r loading spatial data}
+#points
+fish <- read.csv("data/Occurrence.csv")
+lat <- fish$decimallatitude
+long <- fish$decimallongitude
+lonlat <- cbind(long, lat)
+snapper <- vect(lonlat)
+plot(snapper)
+
+#polygon
+fish_range <- vect("data/Species_Range.shp")
+plot(fish_range)
+
+#raster
+pH <- rast("data/Mean_PH.tif")
+plot(pH)
+
+#raster from netCDF
+temp <- rast('data/ltMax_temp.nc')
+plot(temp)
+
+```
+
+Or we may want to just make our own spatial data. This is useful if you are entering points by hand,need a layer to add other data into later, or to test a method
+
+```{r Building new data}
+crs <- "+proj=longlat +datum=WGS84"
+
+#point data
+long <- c(-76.5, -80.2, -75.2, -77.4, -79.1, -74.0, -73.7, -76.9, -70.3, -71.6)
+lat <- c(38.8, 42.6, 38.9, 42.1, 36.7, 38.1, 36.2, 39, 41.6, 37.9)
+lonlat <- cbind(long, lat)
+point <- vect(lonlat, crs= crs) #make sure to include the crs since it wont autogenerate one like in ArcMap
+plot(point)
+
+#Polygon
+long <- c( -75,  -76, -75.5, -73.5,  -74.5)
+lat <- c(38.9,  38.3, 38.2, 38.1,  38.7)
+lonlat <- cbind(id=1, part=1, long, lat)
+polygon <- vect(lonlat, type="polygons", crs=crs) # can swap type= "lines" for a line rahter than a polygon
+plot(polygon)
+
+#Raster
+r <- rast(ncol=10, nrow=10, xmin=-150, xmax=-50, ymin=50, ymax=100, crs = crs) # this builds an empty raster to then put other data into
+values(r) <- 1:ncell(r) #assigns sequential cell numbers as the value
+plot(r)
+```
+
+Then we may want to edit that data. Below we will subset our point data to the polygon, and crop our rasters two different ways
+
+```{r Editing data}
+#clip rasters
+pH_Crop <- crop(pH, fish_range, mask = TRUE) #first crop one raster to the polygon extent using the mask function
+plot(pH_Crop)
+
+temp_Crop <- crop(temp, pH_Crop) #notice this doesn't do the mask with exact outline, it just crops to the outer boundary
+plot(temp_Crop)
+
+occurance_crop <- crop(snapper, fish_range)
+plot(occurance_crop)
+
+```
+
+Don't forget you may need to change a coordinate system
+```{r changing coordinate systems}
+#project to a new coordinate system
+newcrs <- "+proj=robin +datum=WGS84"
+transformed <- terra::project(r, newcrs)
+plot(transformed)
+
+#assign coordinate system for the first time
+crs(temp_Crop) <- crs
+crs(occurance_crop) <- crs
+```
+
+Next we want to make a nice map with all of our data!
+```{r mapping}
+#naming to export later
+snapper_map <- ggplot() +
+  geom_spatraster(data = temp_Crop)+ #add raster
+  geom_spatvector(data = occurance_crop, col = "black") + #add point data
+  annotation_north_arrow(location = "tr", which_north = "true", pad_x = unit(0.1, "in"), pad_y = unit(0.5, "in"), style = north_arrow_minimal) + #add north arrow
+  annotation_scale(location = "bl", width_hint = 0.5,pad_x = unit(0.2, "in"), pad_y = unit(0.3, "in")) + #add scale bar
+ labs(fill = "Longterm Max SST",
+      title = "Gray Snapper" ) 
+
+snapper_map
+
+```
+
+Last we need to save our map and data
+
+```{r saving data}
+#save our cropped snapper data
+writeVector(occurance_crop, "data/cropped_snapper.shp", overwrite=TRUE)
+#save our cropped temp data
+writeRaster(temp_Crop, "data/cropped_temp.tif", overwrite=TRUE)
+#save map
+ggsave("snapper_map.png", plot = snapper_map, path = "data/")
+
+```
+
