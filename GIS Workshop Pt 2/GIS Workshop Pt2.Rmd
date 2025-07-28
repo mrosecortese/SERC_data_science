@@ -1,0 +1,183 @@
+---
+title: "GIS Workshop Pt2"
+author: "M.Cortese"
+date: "2025-07-23"
+output: html_document
+---
+
+Learning Goals:
+Buffering & joins
+Basic raster algebra
+Extracting raster values at points
+Summarizing data across polygons
+Spatial Clustering and Autocorrelation (Moran's I)
+Basic Stats for Ecology (Only in R):
+    T-Tests
+    Simple linear models
+
+
+```{r setup, message=FALSE}
+#load packages
+library(terra)
+library(ggspatial)
+library(tidyterra)
+library(ggplot2)
+library(spdep) #spatial stats: join-counts test
+library(ape) #spatial stats: morans i
+
+```
+
+Last time we went over loading spatial data, so we will quickly load in the data that is in the data folder. This includes point data, two polygons and two rasters.
+
+
+```{r load data}
+#points
+snapper <- vect("data/cropped_snapper.shp")
+plot(snapper)
+
+fish <- read.csv("data/GraySnapper.csv")
+fish$occ <- as.factor(fish$occ)
+lat <- fish$Latitude
+long <- fish$Longitude
+lonlat <- cbind(long, lat) #will use this later
+
+#polygons
+domRep <- vect("data/dr.shp")
+plot(domRep)
+
+haiti <- vect("data/ht.shp")
+plot(haiti)
+
+#raster from tif
+temp <- rast('data/cropped_temp.tif')
+plot(temp)
+
+#raster from netCDF. Dissolved Oxygen with 4 bands, each band is a month. 
+do <- rast('data/dissolvedOxygen.nc')
+plot(do)
+
+```
+
+Next we are going to run through a few functions that are helpful for analyzing spatial data. We will start with buffering
+and then joining data sets. 
+
+A buffer is the area around another feature. This is useful if you want to know what lies within a certain distance of another object, or you end to summarize data within a certain distance of another object.
+
+We will create a buffer around our point data, then join two polygons together, and lastly, buffer the final joined polygon.
+
+```{r Buffering & Joins}
+#5km buffer around snapper points
+snapper_buff <- buffer(snapper, 5000, quadsegs=10, capstyle="round", 
+    joinstyle="round", mitrelimit=NA, singlesided=FALSE)
+ggplot() + geom_sf(data = snapper_buff, fill = 3) + coord_sf(xlim = c(-90, -82), ylim = c(25, 31)) #coord_sf overrides the default plotting coordinates to allow you to zoom in 
+
+#joining two polygons
+hispanola <- union(domRep, haiti) #the function 'rbind' can also work here. 
+plot(hispanola)
+
+hispanola<- aggregate(hispanola) #dissolve boundaries and combine geometries. Will have to choose a 'fun =' function if joining features with data attributes
+plot(hispanola) 
+
+#buffer new polygon, 10 km from the coast
+hisp_buff <- buffer(hispanola, 10000)
+ggplot() +  geom_sf(data = hisp_buff, fill = 5) + geom_sf(data = hispanola, fill = 3) 
+
+```
+
+Note: the second argument in the buffer function is width. This is the length you want included in the buffer.We specified 5000 for 5km. Unit is meter if x has a longitude/latitude CRS, or in the units of the coordinate reference system in other cases (typically also meter). More info at https://rspatial.github.io/terra/reference/buffer.html
+
+Next we will do some raster algebra within a single raster, across bands, and between separate rasters. 
+
+```{r Basic raster algebra}
+#math within a single raster
+temp_2 <- temp + 2
+range(temp)
+range(temp_2)
+
+#math between rasters
+temp_mult <- temp * temp_2
+range(temp_mult)
+
+#across bands 
+avg_o2 <- mean(do) #automatically calculated across all bands
+plot(avg_o2)
+max_o2 <- max(subset(do, 1:3)) #gives max value across the first three raster bands
+plot(max_o2)
+
+```
+
+You may want to extract raster data a certain points. Below we will extract temperature and dissolved oxygen data at each occurrence point, then combine those back into a single data frame
+
+```{r Extracting raster values at points}
+
+snap_temp <- extract(temp, snapper, xy = TRUE) #with vector of points
+snap_o2 <- extract(avg_o2, snapper)
+snap_values= merge(snap_o2, snap_temp, by = 'ID') #join two extracted dataframes
+names(snap_values) <- c("ID", "DO","Temp", "Long", "Lat") #rename columns
+head(snap_values)
+
+fish_temp <- extract(temp, lonlat) #can also use a matrix of lat/long values for this. This uses the matrix we built at the beginning
+fish=data.frame(fish, fish_temp)
+
+```
+
+Another useful tool is summarizing data within a polygon, or series of polygon. this is sometimes called zonal statistics (statistics within a certain zone). We will extract the average dissolved oxygen value within nearshore Hispanola (aka within our 10km buffer). We will also extract maximum temp experienced near each snapper (aka within our 5km buffer)
+
+```{r Summarizing data across polygons}
+
+hisp_nearshore_do <- zonal(avg_o2, hisp_buff, fun = "mean", na.rm=TRUE)
+head(hisp_nearshore_do)
+
+snap_buff_temp <- zonal(temp, snapper_buff, fun = "max", as.polygons = TRUE) #as.polygon adds the calculated values to the polygon vector so the output is a spatvector rather than a data frame
+ggplot(snap_buff_temp)+ geom_sf(aes(fill = thetao_ltmax))+ coord_sf(xlim = c(-90, -82), ylim = c(25, 31))
+
+```
+
+Now that we have learned some functions, it may be helpful to understand the spatial structure of the data set so that we can use this data is other modeling exercises. 
+
+Spatial autocorrelation is how similar data values are to those they are close to. Highly spatially correlated data is very similar to values next to it. We will look at testing spatial correlation for rasters and for vector data. Since this is  testing similarity you need to have a covariate you are assessing the spatial correlation of. For example, are the temperatures of each point spatially correlated? If yes, temperatures closer together will be more similar
+
+```{r Spatial Clustering and Autocorrelation (Morans I)}
+#for a raster, this is easier since each grid cell has associated data. Output is Morans Index. Higher value the more correlated. 
+autocor(temp, method = "moran") #is temp layer spatially correlated? yes
+
+#for points the process is a little longer. First, we need to tell the function how close the points are to each other so we will build a distance weight matrix 
+
+# Generate a distance matrix
+point_dist <- as.matrix(dist(lonlat))
+
+# Take the inverse of the matrix values so that closer values have a larger weight 
+point_dist_inv <- 1/point_dist
+diag(point_dist_inv) <- 0   # replace the diagonal values with zero
+
+# Computes Moran's I autocorrelation coefficient of x giving a matrix of weights (here based on distance) 
+Moran.I(fish$thetao_ltmax, point_dist_inv, na.rm = TRUE)
+
+#for binary data (presence absence) we cant use morans i, so we will use join-counts statistic
+nn5 <- knn2nb(knearneigh(lonlat,5, longlat = TRUE)) #groups of nearest neighbor points. number is the number of nearest neighbors to consider when classifying a point.
+w <- nb2listw(nn5, style='B') #distance weighted matrix, B for binary
+joincount.test(fish$occ, w) #variable testing must be a factor
+
+
+```
+Okay that brings us to the end of the spatial part of this. Not we are going to do two quick stats on our dataset.
+
+First, we will run a t-test. This is for comparing two means so we want to see if there is a difference in temperature at our presence points vs absence points
+```{r T-tests}
+
+boxplot(fish$thetao_ltmax ~ fish$occ) #visulize the data
+t.test(thetao_ltmax ~ occ, data = fish) #preform test. Auto fills as two sample test since occ is a two-factor variable
+
+```
+Finally, we want to know if there is a linear trend in temperature with latitude (hypothesizing that we do and it is driving our spatial autocorrelation). We will set this up as a linear model using 'ln' since we have a continuous predictor variable but anova may also be appropriate if you have multiple categorical variables or a categorical variable with more than two factors.
+
+note: when setting up a linear model you will also want to check the assumptions of the model. All data should be independent, normal, linear, and have evenly distributed variance (homoscedasticity). I like the 'preformance' package for this. Check out https://www.statology.org/check-linear-regression-assumptions-in-r/ for more details and a step by step in base r
+
+```{r linear models}
+plot(fish$thetao_ltmax ~ fish$Latitude)
+
+mod<-lm(thetao_ltmax ~ Latitude, data = fish) #the model
+anova(mod) #force model into an anova output for interpretation
+
+```
+
